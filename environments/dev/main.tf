@@ -1,6 +1,10 @@
 terraform {
-  backend "local" {
-    path = "terraform.tfstate"
+  cloud {
+    organization = "Soli"
+
+    workspaces {
+      name = "website-iac-dev"
+    }
   }
 }
 
