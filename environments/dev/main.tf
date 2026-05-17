@@ -8,6 +8,11 @@ terraform {
   }
 }
 
+import {
+  to = module.application.aws_codestarconnections_connection.github
+  id = "arn:aws:codeconnections:us-east-1:299834554281:connection/e5d83352-d991-4938-b9af-7979a05f0cf4"
+}
+
 module "application" {
   source = "../../application"
 
