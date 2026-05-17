@@ -1,8 +1,2 @@
 # Root module entry point.
-# Add shared AWS resources here or compose child modules from modules/.
-
-module "website" {
-  source = "../modules/website"
-
-  name = "${var.project_name}-${var.environment}"
-}
+# Website deployment resources are defined in s3.tf and cicd.tf.

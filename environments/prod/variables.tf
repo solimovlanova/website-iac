@@ -13,7 +13,7 @@ variable "project_name" {
 variable "environment" {
   description = "Deployment environment name."
   type        = string
-  default     = "dev"
+  default     = "prod"
 }
 
 variable "tags" {
@@ -40,7 +40,7 @@ variable "website_source_directory" {
 }
 
 variable "website_bucket_name" {
-  description = "Name of the destination S3 bucket for website files."
+  description = "Name of the existing destination S3 bucket for website files."
   type        = string
 }
 

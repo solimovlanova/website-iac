@@ -1,5 +1,0 @@
-environment = "prod"
-
-tags = {
-  Owner = "team-name"
-}

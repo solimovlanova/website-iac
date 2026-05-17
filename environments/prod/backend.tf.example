@@ -1,2 +1,0 @@
-# Example backend configuration for the prod environment.
-# Replace the placeholders with your S3 bucket, key, region, and DynamoDB table.
