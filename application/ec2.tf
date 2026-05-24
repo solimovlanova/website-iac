@@ -119,7 +119,7 @@ resource "aws_instance" "web" {
   subnet_id                   = data.aws_subnets.default.ids[0]
   vpc_security_group_ids      = [for security_group in values(aws_security_group.web) : security_group.id]
   iam_instance_profile        = aws_iam_instance_profile.ec2_ssm.name
-  associate_public_ip_address = false
+  associate_public_ip_address = true
   monitoring                  = true
   disable_api_termination     = true
 
