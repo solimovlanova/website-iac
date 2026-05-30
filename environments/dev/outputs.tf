@@ -17,3 +17,8 @@ output "web_public_ip" {
   description = "Persistent public IPv4 address assigned to the web origin."
   value       = module.application.web_public_ip
 }
+
+output "ecr_repository_urls" {
+  description = "Repository URLs for the created ECR repositories."
+  value       = module.application.ecr_repository_urls
+}

@@ -29,6 +29,7 @@ module "application" {
   website_source_directory = var.website_source_directory
   website_bucket_name      = var.website_bucket_name
   github_connection_name   = var.github_connection_name
+  ecr_repository_names     = var.ecr_repository_names
 }
 
 

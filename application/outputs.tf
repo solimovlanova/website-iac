@@ -42,3 +42,11 @@ output "web_public_ip" {
   description = "Persistent public IPv4 address assigned to the web origin."
   value       = aws_eip.web.public_ip
 }
+
+output "ecr_repository_urls" {
+  description = "Repository URLs for the created ECR repositories."
+  value = {
+    for name, repository in aws_ecr_repository.repositories :
+    name => repository.repository_url
+  }
+}

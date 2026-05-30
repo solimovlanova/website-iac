@@ -49,3 +49,9 @@ variable "github_connection_name" {
   type        = string
   default     = null
 }
+
+variable "ecr_repository_names" {
+  description = "Names of ECR repositories to create."
+  type        = list(string)
+  default     = []
+}
