@@ -1,5 +1,19 @@
 
 terraform {
+  required_version = ">= 1.9.0, < 2.0.0"
+
+  required_providers {
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.5"
+    }
+
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.47"
+    }
+  }
+
   cloud {
     organization = "Soli"
 
@@ -10,12 +24,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
-import {
-  to = module.application.aws_codestarconnections_connection.github
-  id = "arn:aws:codeconnections:us-east-1:299834554281:connection/e5d83352-d991-4938-b9af-7979a05f0cf4"
+
+provider "aws" {
+  alias  = "agent_workspace"
+  region = var.agent_workspace_aws_region
 }
+
 
 module "application" {
   source = "../../application"
@@ -33,28 +49,37 @@ module "application" {
 }
 
 
-import {
-  to = module.application.aws_s3_bucket.website
-  id = "movlanova.com"
-  
-}
+module "agent_workspace" {
+  source  = "douklar/agent-workspace/aws"
+  version = "1.0.3"
 
-import {
-  to = module.application.aws_s3_bucket_ownership_controls.website
-  id = "movlanova.com"
-}
+  providers = {
+    aws = aws.agent_workspace
+  }
 
-# import {
-#   to = module.application.aws_s3_bucket_acl.website
-#   id = "movlanova.com"
-# }
-
-import {
-  to = module.application.aws_s3_bucket_policy.website
-  id = "movlanova.com"
-}
-
-import {
-  to = module.application.aws_s3_bucket_public_access_block.website
-  id = "movlanova.com"
+  aws_region                    = var.agent_workspace_aws_region
+  name_prefix                   = var.agent_workspace_name_prefix
+  instance_name                 = var.agent_workspace_instance_name
+  instance_type                 = var.agent_workspace_instance_type
+  storage                       = var.agent_workspace_storage
+  associate_public_ip           = var.agent_workspace_associate_public_ip
+  vpc_id                        = var.agent_workspace_vpc_id
+  subnet_id                     = var.agent_workspace_subnet_id
+  security_group_ids            = var.agent_workspace_security_group_ids
+  ingress_ports                 = var.agent_workspace_ingress_ports
+  egress_ports                  = var.agent_workspace_egress_ports
+  ami_id                        = var.agent_workspace_ami_id
+  developer_config              = var.agent_workspace_developer_config
+  instance_schedule_windows     = var.agent_workspace_instance_schedule_windows
+  scheduler_features            = var.agent_workspace_scheduler_features
+  extra_env_vars                = var.agent_workspace_extra_env_vars
+  extra_env_var_parameter_names = var.agent_workspace_extra_env_var_parameter_names
+  kms_key_arn                   = var.agent_workspace_kms_key_arn
+  cost_report                   = var.agent_workspace_cost_report
+  ami_transfer                  = var.agent_workspace_ami_transfer
+  enable_session_manager        = var.agent_workspace_enable_session_manager
+  environment                   = var.agent_workspace_environment
+  cost_center                   = var.agent_workspace_cost_center
+  owner_email                   = var.agent_workspace_owner_email
+  tags                          = merge(var.tags, var.agent_workspace_tags)
 }
