@@ -50,8 +50,7 @@ module "application" {
 
 
 module "agent_workspace" {
-  source  = "douklar/agent-workspace/aws"
-  version = "1.0.3"
+  source = "../../modules/agent-workspace"
 
   providers = {
     aws = aws.agent_workspace
